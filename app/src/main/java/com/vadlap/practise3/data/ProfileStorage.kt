@@ -14,7 +14,8 @@ private val Context.profileDataStore: DataStore<Preferences> by preferencesDataS
 data class ProfileData(
     val name: String,
     val avatarUri: String,
-    val resumeUrl: String
+    val resumeUrl: String,
+    val classTime: String
 )
 
 class ProfileStorage(private val context: Context) {
@@ -23,6 +24,7 @@ class ProfileStorage(private val context: Context) {
         val KEY_NAME = stringPreferencesKey("profile_name")
         val KEY_AVATAR_URI = stringPreferencesKey("profile_avatar_uri")
         val KEY_RESUME_URL = stringPreferencesKey("profile_resume_url")
+        val KEY_CLASS_TIME = stringPreferencesKey("profile_class_time") // Ключ для времени
     }
 
     val profileFlow: Flow<ProfileData> = context.profileDataStore.data
@@ -30,7 +32,8 @@ class ProfileStorage(private val context: Context) {
             ProfileData(
                 name = preferences[KEY_NAME] ?: "Иван Иванов",
                 avatarUri = preferences[KEY_AVATAR_URI] ?: "",
-                resumeUrl = preferences[KEY_RESUME_URL] ?: ""
+                resumeUrl = preferences[KEY_RESUME_URL] ?: "",
+                classTime = preferences[KEY_CLASS_TIME] ?: ""
             )
         }
 
@@ -39,6 +42,7 @@ class ProfileStorage(private val context: Context) {
             preferences[KEY_NAME] = profile.name
             preferences[KEY_AVATAR_URI] = profile.avatarUri
             preferences[KEY_RESUME_URL] = profile.resumeUrl
+            preferences[KEY_CLASS_TIME] = profile.classTime
         }
     }
 }

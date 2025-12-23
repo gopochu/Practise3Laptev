@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class ProfileViewModel(private val profileStorage: ProfileStorage) : ViewModel() {
 
-    private val _profileState = MutableStateFlow(ProfileData("", "", ""))
+    private val _profileState = MutableStateFlow(ProfileData("", "", "", ""))
     val profileState = _profileState.asStateFlow()
 
     init {
@@ -22,9 +22,9 @@ class ProfileViewModel(private val profileStorage: ProfileStorage) : ViewModel()
         }
     }
 
-    fun saveProfile(name: String, avatarUri: String, resumeUrl: String) {
+    fun saveProfile(name: String, avatarUri: String, resumeUrl: String, classTime: String) {
         viewModelScope.launch {
-            val newProfile = ProfileData(name, avatarUri, resumeUrl)
+            val newProfile = ProfileData(name, avatarUri, resumeUrl, classTime)
             profileStorage.saveProfile(newProfile)
         }
     }
